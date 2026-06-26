@@ -1,26 +1,221 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: oklch(0.145 0.025 255);
+  --bg-elevated: oklch(0.185 0.028 255);
+  --bg-panel: oklch(0.225 0.03 254);
+  --ink: oklch(0.96 0.008 250);
+  --ink-secondary: oklch(0.78 0.02 252);
+  --ink-faint: oklch(0.62 0.025 252);
+  --accent: oklch(0.72 0.17 252);
+  --accent-strong: oklch(0.62 0.19 255);
+  --accent-soft: oklch(0.72 0.17 252 / 0.14);
+  --signal: oklch(0.85 0.16 165);
+  --signal-soft: oklch(0.85 0.16 165 / 0.13);
+  --warn: oklch(0.82 0.14 85);
+  --danger: oklch(0.68 0.19 25);
+  --line: oklch(0.32 0.03 254);
+  --line-strong: oklch(0.42 0.035 254);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-elevated: var(--bg-elevated);
+  --color-panel: var(--bg-panel);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-secondary);
+  --color-ink-3: var(--ink-faint);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --font-sans: var(--font-body), system-ui, sans-serif;
+  --font-display: var(--font-display-var), var(--font-body), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--bg);
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display-var), var(--font-body), system-ui, sans-serif;
+  text-wrap: balance;
+  line-height: 1.15;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--accent);
+  color: oklch(0.13 0.03 255);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Landing-page signature: steel gradient display type (concept-mandated). */
+.hero-heading {
+  background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.font-kanit {
+  font-family: var(--font-kanit), sans-serif;
+}
+
+/* ----- shared component vocabulary ----- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: 10px;
+  padding: 0.65rem 1.25rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 120ms var(--ease-out), background-color 150ms ease, border-color 150ms ease, opacity 150ms ease;
+  user-select: none;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.4; pointer-events: none; }
+
+.btn-primary {
+  background: var(--accent);
+  color: oklch(0.13 0.03 255);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { background: var(--accent-strong); color: var(--ink); }
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover { border-color: var(--accent); background: var(--accent-soft); }
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-secondary);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-ghost:hover { color: var(--ink); background: var(--bg-panel); }
+}
+
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.input {
+  width: 100%;
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  transition: border-color 150ms ease;
+}
+.input::placeholder { color: var(--ink-faint); }
+.input:focus { border-color: var(--accent); outline: none; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--line);
+  color: var(--ink-secondary);
+  background: var(--bg-elevated);
+  cursor: pointer;
+  transition: transform 120ms var(--ease-out), border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+.chip:active { transform: scale(0.96); }
+.chip[data-on="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.hairline { border-color: var(--line); }
+
+/* skeleton shimmer */
+.skeleton {
+  background: linear-gradient(100deg, var(--bg-elevated) 40%, var(--bg-panel) 50%, var(--bg-elevated) 60%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 8px;
+}
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+
+/* range slider */
+input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent) var(--fill, 50%), var(--bg-panel) var(--fill, 50%));
+  outline-offset: 6px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 3px solid var(--accent);
+  cursor: grab;
+  transition: transform 120ms var(--ease-out);
+}
+input[type="range"]::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.12); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
