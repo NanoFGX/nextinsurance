@@ -1,12 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import AppShell from "@/components/app-shell";
 import AskAdvisorButton from "@/components/ask-advisor-button";
 import CoverageIcon from "@/components/coverage-icon";
-import { EASE_OUT, StaggerItem, StaggerList } from "@/components/motion-primitives";
+import { StaggerItem, StaggerList } from "@/components/motion-primitives";
 import ScoreRing from "@/components/score-ring";
 import { useProfile } from "@/lib/profile-store";
 import { COVERAGE_LABELS, type CoverageType, type Policy } from "@/lib/types";
@@ -70,11 +69,8 @@ export default function DashboardPage() {
       )}
 
       {data && data.policies.length === 0 && (
-        <motion.div
-          className="card mx-auto mt-12 max-w-md p-10 text-center"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: EASE_OUT }}
+        <div
+          className="card mx-auto mt-12 max-w-md p-10 text-center ni-fade-in"
         >
           <p className="font-(family-name:--font-display-var) text-xl font-bold text-ink">
             Nothing protected yet
@@ -86,18 +82,15 @@ export default function DashboardPage() {
           <Link href={profile ? "/results" : "/onboard"} className="btn btn-primary mt-7">
             {profile ? "See my matches" : "Find my cover"}
           </Link>
-        </motion.div>
+        </div>
       )}
 
       {data && data.policies.length > 0 && (
         <>
           {/* Protection overview */}
-          <motion.section
+          <section
             aria-label="Protection overview"
-            className="card mt-8 flex flex-wrap items-center gap-7 p-5 sm:p-6"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: EASE_OUT }}
+            className="card mt-8 flex flex-wrap items-center gap-7 p-5 sm:p-6 ni-fade-in"
           >
             <ScoreRing
               score={(4 - data.gaps.length) * 25}
@@ -122,11 +115,9 @@ export default function DashboardPage() {
                         {COVERAGE_LABELS[t]}
                       </span>
                       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-panel">
-                        <motion.div
+                        <div
                           className={`h-full rounded-full ${spend > 0 ? "bg-accent" : "bg-transparent"}`}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${pct}%` }}
-                          transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.2 }}
+                          style={{ width: `${pct}%` }}
                         />
                       </div>
                       <span className="tnum w-20 shrink-0 text-right text-xs font-semibold text-ink-2">
@@ -142,7 +133,7 @@ export default function DashboardPage() {
               label="Review my cover"
               className="btn btn-secondary !py-2 shrink-0 text-sm"
             />
-          </motion.section>
+          </section>
 
           <StaggerList className="mt-6 grid gap-4 md:grid-cols-2" gap={0.07}>
             {data.policies.map((policy) => {
@@ -192,12 +183,10 @@ export default function DashboardPage() {
           </StaggerList>
 
           {data.gaps.length > 0 && (
-            <motion.section
+            <section
               aria-label="Coverage gaps"
-              className="mt-10"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, ease: EASE_OUT, delay: 0.2 }}
+              className="mt-10 ni-fade-in"
+              style={{ animationDelay: "0.15s" }}
             >
               <h2 className="font-(family-name:--font-display-var) text-xl font-bold text-ink">
                 Coverage gaps NEXTAdvisor noticed
@@ -224,7 +213,7 @@ export default function DashboardPage() {
                   </Link>
                 ))}
               </div>
-            </motion.section>
+            </section>
           )}
         </>
       )}

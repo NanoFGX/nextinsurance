@@ -139,29 +139,29 @@ function PayTile() {
 /* ---------- rows ---------- */
 
 const ROW_1 = [
-  <ScoreTile key="s1" name="FlexiMed Gig" provider="TigerSure" rm={76} score={86} />,
+  <ScoreTile key="s1" name="Zurich MedicalCare" provider="Zurich" rm={312} score={94} />,
   <StatTile key="t1" value="RM 0" label="paid in commissions, ever" />,
-  <ChatTile key="c1" q="What's a co-payment?" a="You pay 5% of each bill, capped at RM 800 per stay. The insurer covers the rest." />,
-  <ProviderTile key="p1" name="AmanahShield" trust={92} tagline="Shariah-compliant protection since 1994" />,
+  <ChatTile key="c1" q="What's a co-payment?" a="You pay a small share of each hospital bill, capped per stay. The insurer covers the rest." />,
+  <ProviderTile key="p1" name="Zurich" trust={94} tagline="Global protection, local expertise — our partner" />,
   <ClauseTile key="f1" term="Waiting period" plain="For the first 30 days only accidents are covered, not illness. Then everything applies." />,
-  <ScoreTile key="s2" name="Term 500" provider="HornbillLife" rm={58} score={91} />,
-  <StatTile key="t2" value="24" label="plans scanned per match" />,
-  <ChatTile key="c2" q="Best cover for gig riders?" a="TigerSure plans cover e-hailing by default — standard policies void claims on the job." />,
-  <ProviderTile key="p2" name="HornbillLife" trust={90} tagline="Protecting Malaysian families for 60 years" />,
+  <ScoreTile key="s2" name="A-Life Med Regular" provider="AIA" rm={95} score={90} />,
+  <StatTile key="t2" value="27" label="plans scored per scan" />,
+  <ChatTile key="c2" q="Best cover for gig riders?" a="Takaful myMotor covers e-hailing by default — standard policies void claims on the job." />,
+  <ProviderTile key="p2" name="AIA" trust={93} tagline="Healthier, longer, better lives" />,
   <ClauseTile key="f2" term="Betterment" plain="Old car, new parts: you pay a share of repairs. The older the car, the bigger the share." />,
-  <ScoreTile key="s3" name="Global Health" provider="ZenithGuard" rm={392} score={84} />,
+  <ScoreTile key="s3" name="PRUMillion Med" provider="Prudential" rm={268} score={88} />,
 ];
 
 const ROW_2 = [
   <ChatTile key="c3" q="Is takaful halal?" a="Yes — contributors pool funds, surpluses are shared back, payouts skip probate via hibah." />,
   <StatTile key="t3" value="3 min" label="from clueless to covered" />,
-  <ScoreTile key="s4" name="Ride Pro" provider="TigerSure" rm={68} score={92} />,
-  <ProviderTile key="p3" name="MerdekaCare" trust={88} tagline="Malaysia's everyday insurer" />,
+  <ScoreTile key="s4" name="Takaful myMotor" provider="Takaful Malaysia" rm={64} score={92} />,
+  <ProviderTile key="p3" name="Prudential" trust={92} tagline="Always listening, always understanding" />,
   <ClauseTile key="f3" term="Room & board cap" plain="Pick a pricier room and EVERY part of your claim gets cut proportionally. Stay in limit." />,
   <PayTile key="pay" />,
-  <ScoreTile key="s5" name="CI Shield" provider="AmanahShield" rm={47} score={88} />,
-  <StatTile key="t4" value="6" label="providers, one ranking" />,
-  <ProviderTile key="p4" name="ZenithGuard" trust={86} tagline="Coverage that travels with you" />,
+  <ScoreTile key="s5" name="CI Income Guard" provider="Etiqa" rm={34} score={87} />,
+  <StatTile key="t4" value="10" label="insurers, one ranking" />,
+  <ProviderTile key="p4" name="Allianz" trust={91} tagline="We secure your future" />,
   <ChatTile key="c4" q="What's the catch?" a="Three clauses bite most: waiting periods, room caps, betterment. We decode all of them." />,
 ];
 

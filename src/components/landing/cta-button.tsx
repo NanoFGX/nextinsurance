@@ -10,10 +10,12 @@ export default function CtaButton({
   label = "Find my cover",
   href = "/onboard",
   onClick,
+  testId,
 }: {
   label?: string;
   href?: string;
   onClick?: () => void;
+  testId?: string;
 }) {
   const style: React.CSSProperties = {
     background:
@@ -28,13 +30,13 @@ export default function CtaButton({
 
   if (onClick) {
     return (
-      <button type="button" onClick={onClick} className={cls} style={style}>
+      <button type="button" data-testid={testId} onClick={onClick} className={cls} style={style}>
         {label}
       </button>
     );
   }
   return (
-    <Link href={href} className={cls} style={style}>
+    <Link href={href} data-testid={testId} className={cls} style={style}>
       {label}
     </Link>
   );

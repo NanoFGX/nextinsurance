@@ -26,12 +26,9 @@ function MatchCard({ match, rank, compared, onCompare }: {
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <motion.article
-      layout="position"
-      className={`card overflow-hidden transition-[border-color] duration-150 ${compared ? "border-accent" : ""}`}
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: EASE_OUT, delay: Math.min(rank * 0.06, 0.3) }}
+    <article
+      className={`card overflow-hidden transition-[border-color] duration-150 ni-fade-in ${compared ? "border-accent" : ""}`}
+      style={{ animationDelay: `${Math.min(rank * 0.06, 0.3)}s`, "--ni-fy": "14px" } as React.CSSProperties}
     >
       <div className="flex flex-wrap items-center gap-5 p-5 sm:p-6">
         <ScoreRing score={match.score} />
@@ -141,7 +138,7 @@ function MatchCard({ match, rank, compared, onCompare }: {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.article>
+    </article>
   );
 }
 
@@ -364,14 +361,9 @@ function ResultsInner() {
   return (
     <AppShell>
       <header>
-        <motion.h1
-          className="font-(family-name:--font-display-var) text-3xl font-bold text-ink"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: EASE_OUT }}
-        >
+        <h1 className="font-(family-name:--font-display-var) text-3xl font-bold text-ink">
           Your top matches
-        </motion.h1>
+        </h1>
         <p className="mt-2 max-w-xl text-ink-2">
           Scored against your RM {profile.budget}/mo budget. Rank order is score order; open any
           score to audit the math.
@@ -380,12 +372,10 @@ function ResultsInner() {
 
       {/* Suggested portfolio */}
       {recommendation.portfolio.length > 1 && (
-        <motion.section
+        <section
           aria-label="Suggested portfolio"
-          className="card mt-7 p-5 sm:p-6"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: EASE_OUT, delay: 0.08 }}
+          className="card mt-7 p-5 sm:p-6 ni-fade-in"
+          style={{ animationDelay: "0.08s" }}
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-(family-name:--font-display-var) text-base font-bold text-ink">
@@ -418,7 +408,7 @@ function ResultsInner() {
               </Link>
             ))}
           </div>
-        </motion.section>
+        </section>
       )}
 
       {/* Tabs */}

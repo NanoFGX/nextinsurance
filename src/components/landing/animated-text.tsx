@@ -12,7 +12,7 @@ function Char({
   range: [number, number];
   char: string;
 }) {
-  const opacity = useTransform(progress, range, [0.2, 1]);
+  const opacity = useTransform(progress, range, [0.45, 1]);
   return <motion.span style={{ opacity }}>{char}</motion.span>;
 }
 

@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import Logo from "@/components/logo";
 import CoverageIcon from "@/components/coverage-icon";
+import PartnerBadge from "@/components/landing/partner-badge";
 import { EASE_OUT } from "@/components/motion-primitives";
 import { useProfile } from "@/lib/profile-store";
-import type { CoverageType, IncomeBracket, Priority, Profile, Segment } from "@/lib/types";
+import { COVERAGE_LABELS, type CoverageType, type IncomeBracket, type Priority, type Profile, type Segment } from "@/lib/types";
 
 const COVERAGE_OPTIONS: { key: CoverageType; label: string; hint: string }[] = [
   { key: "health", label: "Health & medical", hint: "Hospital bills, medical card" },
@@ -94,8 +95,11 @@ export default function Onboard() {
 
   return (
     <div className="flex min-h-dvh flex-col">
-      <header className="mx-auto flex w-full max-w-2xl items-center justify-between px-5 py-5">
-        <Logo />
+      <header className="mx-auto flex w-full max-w-2xl items-center justify-between gap-3 px-5 py-5">
+        <div className="flex items-center gap-3">
+          <Logo />
+          <PartnerBadge className="hidden sm:inline-flex" />
+        </div>
         <span className="tnum text-sm text-ink-3">
           {step + 1} / {TOTAL_STEPS}
         </span>
@@ -387,10 +391,11 @@ export default function Onboard() {
                   <p className="mt-2 text-sm leading-relaxed text-ink-2">
                     NEXTAdvisor will score{" "}
                     <span className="font-semibold text-ink">
-                      every {coverage.map((c) => c).join(", ")} plan
+                      every {coverage.map((c) => COVERAGE_LABELS[c]).join(", ").toLowerCase()} plan
                     </span>{" "}
-                    from 6 partnered providers against your profile and RM {budget}/mo budget. The
-                    full score math ships with every result.
+                    from 10 partnered insurers — including Zurich, AIA, Prudential, Allianz and
+                    Great Eastern — against your profile and RM {budget}/mo budget. The full score
+                    math ships with every result.
                   </p>
                 </div>
               </fieldset>

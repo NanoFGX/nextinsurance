@@ -63,18 +63,18 @@ function ScanVisual() {
           Scanning partnered providers
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          {["AmanahShield", "MerdekaCare", "TigerSure", "HornbillLife", "NusaProtect", "ZenithGuard"].map((p, i) => (
+          {["Zurich", "AIA", "Prudential", "Allianz", "Great Eastern", "Etiqa"].map((p, i) => (
             <span
               key={p}
               className={`rounded-full border px-3.5 py-1.5 font-kanit text-xs uppercase tracking-wider ${
-                i < 4 ? "border-[#00c28e]/50 text-[#00c28e]" : "border-[#D7E2EA]/20 text-[#D7E2EA]/40"
+                i < 5 ? "border-[#00c28e]/50 text-[#00c28e]" : "border-[#D7E2EA]/20 text-[#D7E2EA]/40"
               }`}
             >
               {p}
             </span>
           ))}
         </div>
-        <p className="mt-4 text-sm text-[#D7E2EA]/55">24 plans scored against your profile. No commissions in the math.</p>
+        <p className="mt-4 text-sm text-[#D7E2EA]/55">27 plans scored against your profile. No commissions in the math.</p>
       </div>
     </div>
   );
@@ -82,8 +82,8 @@ function ScanVisual() {
 
 function DecideVisual() {
   const rows = [
-    { name: "FlexiMed Gig", provider: "TigerSure", rm: 76, score: 86 },
-    { name: "MediCore Starter", provider: "MerdekaCare", rm: 89, score: 83 },
+    { name: "Zurich MedicalCare", provider: "Zurich", rm: 312, score: 94 },
+    { name: "A-Life Med Regular", provider: "AIA", rm: 95, score: 90 },
   ];
   return (
     <div className="grid gap-3 sm:grid-cols-[1.5fr_1fr]">

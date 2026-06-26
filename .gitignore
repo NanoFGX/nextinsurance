@@ -42,3 +42,8 @@ next-env.d.ts
 
 # local sqlite db
 data/
+
+# Emergent preview shims (not part of the deployable Next.js app)
+/backend
+/frontend
+

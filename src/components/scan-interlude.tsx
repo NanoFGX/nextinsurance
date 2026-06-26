@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import { EASE_OUT } from "./motion-primitives";
 
 const PROVIDERS = [
-  "AmanahShield Takaful",
-  "MerdekaCare",
-  "TigerSure",
-  "HornbillLife",
-  "NusaProtect",
-  "ZenithGuard",
+  "Zurich Malaysia",
+  "AIA Malaysia",
+  "Prudential",
+  "Great Eastern",
+  "Allianz",
+  "Etiqa Takaful",
 ];
 
 const STATUS = [

@@ -1,99 +1,49 @@
-import { DatabaseSync } from "node:sqlite";
-import path from "node:path";
-import fs from "node:fs";
 import { PLANS, PROVIDERS } from "./seed-data";
 import type { Plan, Policy, Provider } from "./types";
 
-const DB_DIR = path.join(process.cwd(), "data");
-const DB_PATH = path.join(DB_DIR, "nextinsurance.db");
+/**
+ * In-memory data layer. The plan/provider catalog is read-only seed data;
+ * policies are demo-only and live for the lifetime of the server process.
+ *
+ * (We deliberately avoid node:sqlite / native modules so the app runs on any
+ * Node 20+ runtime and deploys cleanly to serverless hosts like Vercel.)
+ */
 
-// Survive Turbopack HMR re-evaluation in dev: keep one handle per process.
-const g = globalThis as unknown as { __nidb?: DatabaseSync };
+const g = globalThis as unknown as {
+  __niPolicies?: Policy[];
+};
 
-function init(): DatabaseSync {
-  fs.mkdirSync(DB_DIR, { recursive: true });
-  const db = new DatabaseSync(DB_PATH);
-  db.exec(`
-    PRAGMA journal_mode = WAL;
-    CREATE TABLE IF NOT EXISTS providers (
-      id TEXT PRIMARY KEY,
-      json TEXT NOT NULL
-    );
-    CREATE TABLE IF NOT EXISTS plans (
-      id TEXT PRIMARY KEY,
-      type TEXT NOT NULL,
-      json TEXT NOT NULL
-    );
-    CREATE TABLE IF NOT EXISTS policies (
-      id TEXT PRIMARY KEY,
-      uid TEXT NOT NULL,
-      plan_id TEXT NOT NULL,
-      json TEXT NOT NULL,
-      created_at TEXT NOT NULL
-    );
-    CREATE INDEX IF NOT EXISTS idx_policies_uid ON policies(uid);
-    CREATE INDEX IF NOT EXISTS idx_plans_type ON plans(type);
-  `);
+g.__niPolicies ??= [];
 
-  const count = db.prepare("SELECT COUNT(*) AS n FROM plans").get() as { n: number };
-  if (count.n === 0) {
-    const insProvider = db.prepare("INSERT OR REPLACE INTO providers (id, json) VALUES (?, ?)");
-    const insPlan = db.prepare("INSERT OR REPLACE INTO plans (id, type, json) VALUES (?, ?, ?)");
-    db.exec("BEGIN");
-    for (const provider of PROVIDERS) insProvider.run(provider.id, JSON.stringify(provider));
-    for (const plan of PLANS) insPlan.run(plan.id, plan.type, JSON.stringify(plan));
-    db.exec("COMMIT");
-  }
-  return db;
-}
-
-export function getDb(): DatabaseSync {
-  g.__nidb ??= init();
-  return g.__nidb;
-}
+const providerIndex = new Map<string, Provider>(PROVIDERS.map((p) => [p.id, p]));
+const planIndex = new Map<string, Plan>(PLANS.map((p) => [p.id, p]));
 
 export function allProviders(): Provider[] {
-  const rows = getDb().prepare("SELECT json FROM providers").all() as { json: string }[];
-  return rows.map((r) => JSON.parse(r.json));
+  return PROVIDERS;
 }
 
 export function allPlans(): Plan[] {
-  const rows = getDb().prepare("SELECT json FROM plans").all() as { json: string }[];
-  return rows.map((r) => JSON.parse(r.json));
+  return PLANS;
 }
 
 export function plansByTypes(types: string[]): Plan[] {
   if (types.length === 0) return [];
-  const placeholders = types.map(() => "?").join(",");
-  const rows = getDb()
-    .prepare(`SELECT json FROM plans WHERE type IN (${placeholders})`)
-    .all(...types) as { json: string }[];
-  return rows.map((r) => JSON.parse(r.json));
+  const set = new Set(types);
+  return PLANS.filter((p) => set.has(p.type));
 }
 
 export function planById(id: string): Plan | null {
-  const row = getDb().prepare("SELECT json FROM plans WHERE id = ?").get(id) as
-    | { json: string }
-    | undefined;
-  return row ? JSON.parse(row.json) : null;
+  return planIndex.get(id) ?? null;
 }
 
 export function providerById(id: string): Provider | null {
-  const row = getDb().prepare("SELECT json FROM providers WHERE id = ?").get(id) as
-    | { json: string }
-    | undefined;
-  return row ? JSON.parse(row.json) : null;
+  return providerIndex.get(id) ?? null;
 }
 
 export function insertPolicy(policy: Policy): void {
-  getDb()
-    .prepare("INSERT INTO policies (id, uid, plan_id, json, created_at) VALUES (?, ?, ?, ?, ?)")
-    .run(policy.id, policy.uid, policy.planId, JSON.stringify(policy), new Date().toISOString());
+  g.__niPolicies!.unshift(policy);
 }
 
 export function policiesByUid(uid: string): Policy[] {
-  const rows = getDb()
-    .prepare("SELECT json FROM policies WHERE uid = ? ORDER BY created_at DESC")
-    .all(uid) as { json: string }[];
-  return rows.map((r) => JSON.parse(r.json));
+  return g.__niPolicies!.filter((p) => p.uid === uid);
 }

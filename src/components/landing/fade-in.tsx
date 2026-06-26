@@ -1,10 +1,11 @@
-"use client";
+import type { CSSProperties, ReactNode } from "react";
 
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
-
-const EASE = [0.25, 0.1, 0.25, 1] as const;
-
+/**
+ * Entrance reveal driven by a pure CSS animation (not framer-motion). CSS
+ * animations are immune to requestAnimationFrame throttling in background /
+ * headless tabs, so content reliably ends visible everywhere — while still
+ * giving a staggered fade-and-rise for real visitors. Honors reduced-motion.
+ */
 export default function FadeIn({
   children,
   delay = 0,
@@ -20,15 +21,15 @@ export default function FadeIn({
   y?: number;
   className?: string;
 }) {
+  const style = {
+    animationDelay: `${delay}s`,
+    animationDuration: `${duration}s`,
+    "--ni-fx": `${x}px`,
+    "--ni-fy": `${y}px`,
+  } as CSSProperties;
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, x, y }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "50px", amount: 0 }}
-      transition={{ delay, duration, ease: EASE }}
-    >
+    <div className={`ni-fade-in ${className ?? ""}`} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }

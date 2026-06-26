@@ -92,6 +92,42 @@ p {
   font-family: var(--font-kanit), sans-serif;
 }
 
+/* Bright brand gradient for accent words on the dark hero. */
+.text-gradient-brand {
+  background: linear-gradient(118deg, #eaf2fb 0%, #6fa8ff 48%, #22d3a5 108%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* CSS-driven entrance reveal (see FadeIn). Reliable in headless/background
+   tabs where framer-motion's rAF loop is throttled. */
+@keyframes niFadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--ni-fx, 0), var(--ni-fy, 24px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.ni-fade-in {
+  opacity: 0;
+  animation-name: niFadeIn;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ni-fade-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* ----- shared component vocabulary ----- */
 
 .btn {

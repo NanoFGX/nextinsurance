@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./logo";
+import PartnerBadge from "./landing/partner-badge";
 import { useProfile } from "@/lib/profile-store";
 import { SEGMENT_LABELS } from "@/lib/types";
 import type { ReactNode } from "react";
@@ -42,11 +43,17 @@ export default function AppShell({ children }: { children: ReactNode }) {
             })}
           </nav>
           {profile ? (
-            <span className="chip hidden cursor-default md:inline-flex" data-on="true">
-              {SEGMENT_LABELS[profile.segment]} · RM {profile.budget}/mo
-            </span>
+            <div className="flex items-center gap-3">
+              <PartnerBadge className="hidden lg:inline-flex" />
+              <span className="chip hidden cursor-default md:inline-flex" data-on="true">
+                {SEGMENT_LABELS[profile.segment]} · RM {profile.budget}/mo
+              </span>
+            </div>
           ) : (
-            <span className="hidden text-xs text-ink-3 md:block">Not onboarded yet</span>
+            <div className="flex items-center gap-3">
+              <PartnerBadge className="hidden lg:inline-flex" />
+              <span className="hidden text-xs text-ink-3 md:block">Not onboarded yet</span>
+            </div>
           )}
         </div>
       </header>

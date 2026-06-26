@@ -10,6 +10,9 @@ export interface Provider {
   trustScore: number; // 0–100, regulator + claims-settlement composite
   tagline: string;
   hue: number; // brand hue used for the provider chip
+  country: string; // home market, shown on provider chips
+  takaful?: boolean; // Shariah-compliant operator
+  featured?: boolean; // headline collaboration partner (Zurich)
 }
 
 export interface FinePrintClause {

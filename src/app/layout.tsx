@@ -25,7 +25,7 @@ const kanit = Kanit({
 export const metadata: Metadata = {
   title: "NEXTINSURANCE — Complex coverage, simplified by AI",
   description:
-    "NEXTAdvisor scans every partnered Malaysian insurer and ranks plans by a transparent match score. Tell us what you need, compare, and buy in minutes.",
+    "NEXTINSURANCE, in collaboration with Zurich, is an AI insurance advisor that scans Malaysia's biggest insurers — Zurich, AIA, Prudential, Allianz, Great Eastern and more — and ranks plans by a transparent match score. Tell us what you need, compare, and buy in minutes.",
 };
 
 export default function RootLayout({
