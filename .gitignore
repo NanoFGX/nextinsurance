@@ -47,3 +47,9 @@ data/
 /backend
 /frontend
 
+.env
+.env.*
+*.env
+credentials.json
+*.key
+.credentials
