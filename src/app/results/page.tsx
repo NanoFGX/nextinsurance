@@ -7,6 +7,7 @@ import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import AppShell from "@/components/app-shell";
 import AskAdvisorButton from "@/components/ask-advisor-button";
 import CoverageIcon from "@/components/coverage-icon";
+import PartnerBadge from "@/components/landing/partner-badge";
 import { EASE_OUT } from "@/components/motion-primitives";
 import ScanInterlude from "@/components/scan-interlude";
 import ScoreRing from "@/components/score-ring";
