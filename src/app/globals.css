@@ -247,6 +247,95 @@ input[type="range"]::-webkit-slider-thumb {
 }
 input[type="range"]::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.12); }
 
+/* ----- inner-page depth (carries the landing's cinematic language) ----- */
+
+/* Fixed ambient glow behind the app-shell content. */
+.app-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.app-aurora::before,
+.app-aurora::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(130px);
+}
+.app-aurora::before {
+  top: -180px;
+  left: -140px;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, oklch(0.62 0.19 255 / 0.4), transparent 70%);
+}
+.app-aurora::after {
+  top: 26%;
+  right: -180px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, oklch(0.85 0.16 165 / 0.16), transparent 70%);
+}
+
+/* Eyebrow kicker — mirrors the landing's section labels. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-kanit), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: oklch(0.78 0.13 250);
+}
+.eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: oklch(0.72 0.17 252 / 0.6);
+}
+
+/* Big display heading in Kanit — the landing's signature voice. */
+.display-head {
+  font-family: var(--font-kanit), sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+}
+
+/* Elevated gradient card with depth. */
+.card-grad {
+  position: relative;
+  background: linear-gradient(180deg, oklch(0.205 0.03 256) 0%, oklch(0.165 0.028 256) 100%);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 18px 48px oklch(0 0 0 / 0.35);
+}
+
+/* Featured (top-match) treatment: brand-tinted glow ring. */
+.card-feature {
+  border-color: oklch(0.62 0.19 255 / 0.55);
+  box-shadow:
+    0 0 0 1px oklch(0.62 0.19 255 / 0.25),
+    0 24px 60px oklch(0.5 0.18 258 / 0.25);
+}
+
+/* Subtle hover lift for interactive cards. */
+.hover-lift {
+  transition: transform 200ms var(--ease-out), border-color 200ms ease, box-shadow 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    transform: translateY(-3px);
+    border-color: var(--line-strong);
+    box-shadow: 0 22px 50px oklch(0 0 0 / 0.4);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

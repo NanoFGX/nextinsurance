@@ -19,8 +19,9 @@ export default function AppShell({ children }: { children: ReactNode }) {
   const { profile } = useProfile();
 
   return (
-    <div className="flex min-h-dvh flex-col">
-      <header className="sticky top-0 z-20 border-b border-line bg-[oklch(0.145_0.025_255/0.85)] backdrop-blur-md">
+    <div className="relative flex min-h-dvh flex-col">
+      <div className="app-aurora" aria-hidden />
+      <header className="sticky top-0 z-30 border-b border-line bg-[oklch(0.145_0.025_255/0.82)] backdrop-blur-xl">
         <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between gap-4 px-4">
           <Logo />
           <nav className="flex items-center gap-1" aria-label="Main">
@@ -57,7 +58,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
           )}
         </div>
       </header>
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 pb-28 pt-8">{children}</main>
+      <main className="relative z-10 mx-auto w-full max-w-5xl flex-1 px-4 pb-28 pt-10">{children}</main>
     </div>
   );
 }

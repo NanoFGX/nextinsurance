@@ -4,12 +4,13 @@ export default function Logo({ href = "/" }: { href?: string }) {
   return (
     <Link
       href={href}
-      className="flex items-baseline gap-0.5 font-(family-name:--font-display-var) text-[1.05rem] font-bold tracking-tight text-ink"
+      className="flex items-baseline gap-1 font-kanit text-lg font-black uppercase tracking-tight text-ink transition-opacity duration-200 hover:opacity-80"
     >
-      <span>NEXT</span>
-      <span className="text-accent">INSURANCE</span>
-      <span className="ml-2 hidden text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-ink-3 sm:inline">
-        by NEXTGEN Co.
+      <span>
+        Next<span className="text-accent">insurance</span>
+      </span>
+      <span className="ml-1 hidden text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-ink-3 sm:inline">
+        by NEXTGEN
       </span>
     </Link>
   );

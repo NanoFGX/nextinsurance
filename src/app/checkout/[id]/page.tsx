@@ -184,14 +184,14 @@ export default function CheckoutPage() {
                   />
                 </svg>
               </motion.div>
-              <h1 className="mt-6 font-(family-name:--font-display-var) text-3xl font-bold text-ink">
-                You're covered.
+              <h1 className="mt-6 display-head text-4xl text-ink">
+                You&apos;re <span className="text-gradient-brand">covered.</span>
               </h1>
               <p className="mx-auto mt-3 max-w-sm text-ink-2">
                 {policy.planName} is now active. {provider?.short} has your e-policy; reference{" "}
                 <span className="tnum font-semibold text-ink">{policy.paymentRef}</span>.
               </p>
-              <div className="card mx-auto mt-7 max-w-sm p-5 text-left text-sm">
+              <div className="card-grad mx-auto mt-7 max-w-sm p-5 text-left text-sm">
                 <div className="flex justify-between py-1.5">
                   <span className="text-ink-3">Paid via</span>
                   <span className="font-semibold text-ink">{channel ?? "NEXTPay"}</span>
@@ -233,8 +233,8 @@ export default function CheckoutPage() {
               </nav>
 
               <div className="mt-4 flex items-center justify-between">
-                <h1 className="font-(family-name:--font-display-var) text-3xl font-bold text-ink">
-                  Checkout
+                <h1 className="display-head text-4xl text-ink sm:text-5xl">
+                  Check<span className="text-gradient-brand">out</span>
                 </h1>
                 <span className="flex items-center gap-1.5 text-xs font-semibold text-ink-3">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -245,10 +245,10 @@ export default function CheckoutPage() {
                 </span>
               </div>
 
-              <div className="card mt-6 flex items-center justify-between gap-4 p-5">
+              <div className="card-grad mt-6 flex items-center justify-between gap-4 p-5">
                 <div className="flex items-center gap-3.5">
-                  <span className="text-accent">
-                    <CoverageIcon type={plan.type} size={26} />
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent">
+                    <CoverageIcon type={plan.type} size={24} />
                   </span>
                   <div>
                     <p className="font-bold text-ink">{plan.name}</p>
@@ -265,7 +265,7 @@ export default function CheckoutPage() {
                 </p>
               </div>
 
-              <form className="card mt-4 p-6" onSubmit={pay} aria-label="Payment details">
+              <form className="card-grad mt-4 p-6" onSubmit={pay} aria-label="Payment details">
                 {/* Method tabs */}
                 <div className="flex gap-1 rounded-xl border border-line bg-panel/50 p-1" role="tablist" aria-label="Payment method">
                   {METHOD_TABS.map((t) => (

@@ -28,7 +28,7 @@ function MatchCard({ match, rank, compared, onCompare }: {
   const [open, setOpen] = useState(false);
   return (
     <article
-      className={`card overflow-hidden transition-[border-color] duration-150 ni-fade-in ${compared ? "border-accent" : ""}`}
+      className={`card-grad hover-lift overflow-hidden ni-fade-in ${rank === 0 ? "card-feature" : ""} ${compared ? "!border-accent" : ""}`}
       style={{ animationDelay: `${Math.min(rank * 0.06, 0.3)}s`, "--ni-fy": "14px" } as React.CSSProperties}
     >
       <div className="flex flex-wrap items-center gap-5 p-5 sm:p-6">
@@ -361,11 +361,12 @@ function ResultsInner() {
 
   return (
     <AppShell>
-      <header>
-        <h1 className="font-(family-name:--font-display-var) text-3xl font-bold text-ink">
-          Your top matches
+      <header className="ni-fade-in">
+        <span className="eyebrow">Your results</span>
+        <h1 className="display-head mt-3 text-4xl text-ink sm:text-5xl">
+          Your top <span className="text-gradient-brand">matches</span>
         </h1>
-        <p className="mt-2 max-w-xl text-ink-2">
+        <p className="mt-3 max-w-xl text-ink-2">
           Scored against your RM {profile.budget}/mo budget. Rank order is score order; open any
           score to audit the math.
         </p>
@@ -375,11 +376,11 @@ function ResultsInner() {
       {recommendation.portfolio.length > 1 && (
         <section
           aria-label="Suggested portfolio"
-          className="card mt-7 p-5 sm:p-6 ni-fade-in"
+          className="card-grad mt-8 p-5 sm:p-6 ni-fade-in"
           style={{ animationDelay: "0.08s" }}
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="font-(family-name:--font-display-var) text-base font-bold text-ink">
+            <h2 className="font-kanit text-base font-bold uppercase tracking-wide text-ink">
               NEXTAdvisor's suggested portfolio
             </h2>
             <p className="tnum text-sm font-semibold">
@@ -394,7 +395,7 @@ function ResultsInner() {
               <Link
                 key={m.plan.id}
                 href={`/plan/${m.plan.id}`}
-                className="group rounded-xl border border-line bg-panel/50 p-4 transition-colors hover:border-accent"
+                className="hover-lift group rounded-xl border border-line bg-panel/50 p-4 hover:border-accent"
               >
                 <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-ink-3">
                   <CoverageIcon type={m.plan.type} size={15} />

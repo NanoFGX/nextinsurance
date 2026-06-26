@@ -40,12 +40,13 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
-      <header className="flex flex-wrap items-end justify-between gap-4">
+      <header className="flex flex-wrap items-end justify-between gap-4 ni-fade-in">
         <div>
-          <h1 className="font-(family-name:--font-display-var) text-3xl font-bold text-ink">
-            My policies
+          <span className="eyebrow">Your cockpit</span>
+          <h1 className="display-head mt-3 text-4xl text-ink sm:text-5xl">
+            My <span className="text-gradient-brand">policies</span>
           </h1>
-          <p className="mt-2 text-ink-2">Every active cover, one cockpit.</p>
+          <p className="mt-3 text-ink-2">Every active cover, one cockpit.</p>
         </div>
         {data && data.policies.length > 0 && (
           <p className="tnum text-right text-sm text-ink-2">
@@ -70,9 +71,9 @@ export default function DashboardPage() {
 
       {data && data.policies.length === 0 && (
         <div
-          className="card mx-auto mt-12 max-w-md p-10 text-center ni-fade-in"
+          className="card-grad mx-auto mt-12 max-w-md p-10 text-center ni-fade-in"
         >
-          <p className="font-(family-name:--font-display-var) text-xl font-bold text-ink">
+          <p className="font-kanit text-xl font-bold uppercase tracking-wide text-ink">
             Nothing protected yet
           </p>
           <p className="mt-3 leading-relaxed text-ink-2">
@@ -90,7 +91,7 @@ export default function DashboardPage() {
           {/* Protection overview */}
           <section
             aria-label="Protection overview"
-            className="card mt-8 flex flex-wrap items-center gap-7 p-5 sm:p-6 ni-fade-in"
+            className="card-grad mt-8 flex flex-wrap items-center gap-7 p-5 sm:p-6 ni-fade-in"
           >
             <ScoreRing
               score={(4 - data.gaps.length) * 25}
@@ -141,7 +142,7 @@ export default function DashboardPage() {
               const soon = days <= 45;
               return (
                 <StaggerItem key={policy.id}>
-                  <article className="card h-full p-5 sm:p-6">
+                  <article className="card-grad hover-lift h-full p-5 sm:p-6">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
                         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent">
@@ -188,7 +189,7 @@ export default function DashboardPage() {
               className="mt-10 ni-fade-in"
               style={{ animationDelay: "0.15s" }}
             >
-              <h2 className="font-(family-name:--font-display-var) text-xl font-bold text-ink">
+              <h2 className="font-kanit text-xl font-bold uppercase tracking-wide text-ink">
                 Coverage gaps NEXTAdvisor noticed
               </h2>
               <p className="mt-1.5 text-sm text-ink-2">

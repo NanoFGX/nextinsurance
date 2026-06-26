@@ -1,0 +1,31 @@
+{
+  "summary": "Frontend-only smoke + regression test of visual polish pass on inner pages (results, plan, checkout, dashboard). End-to-end happy path executed against the preview URL: landing -> onboard (6 steps) -> results -> plan -> checkout (decline + success) -> dashboard, plus FPX and e-Wallet alternate payment methods. All flows pass, no console errors, no page errors. Polish utilities (.app-aurora / .eyebrow / .display-head / .card-grad / .card-feature / .hover-lift) verified to be applied where expected.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Checkout (/checkout/[id])", "issues": ["No '.eyebrow' kicker label rendered on checkout (results & dashboard both have one: 'Your results' / 'Your cockpit'). Polish brief mentioned eyebrow kickers on inner pages — consider adding e.g. 'Secure checkout' kicker above the CHECKOUT display heading for consistency.", "Checkout uses .card-grad (x2) but no .hover-lift on any element. Minor consistency gap vs results which has hover-lift on every match card."]},
+      {"screen": "Dashboard (/dashboard)", "issues": [".hover-lift only applied to 1 element. The purchased-policy card and coverage-gap cards could use hover-lift for parity with results page (where rank cards all hover-lift)."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "(Optional polish) Add an .eyebrow kicker to the checkout page header for visual parity with /results and /dashboard.",
+    "(Optional polish) Apply .hover-lift to policy cards on /dashboard and to the summary/payment cards on /checkout for consistency with /results."
+  ],
+  "critical_code_review_comments": [
+    "Inputs on /checkout/[id] expose stable IDs (#holder, #card, #expiry, #cvv) which is good for testing, but no data-testid attributes anywhere in the app (onboard, results, checkout, dashboard). Consider adding data-testid for: onboarding step buttons, match cards, 'Buy this plan', Pay button, payment tab switches, FPX bank options, wallet options, success-screen reference. This was workable but selectors relied on text/role/id which is brittle.",
+    "Onboarding has no data-testid; works via role+name but framer-motion AnimatePresence transitions required ~150-500ms waits between steps to avoid stale clicks.",
+    "Compare modal opens on selecting 2 chips + clicking 'Compare side by side'. Confirmed functional.",
+    "Sandbox payment decline message renders with role='alert' which is good for a11y."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (frontend-only request)", "frontend": "100% of in-scope flows"},
+  "test_credentials": "No login. Anonymous uid in localStorage. Card success: 4111 1111 1111 1111 + any name/expiry/CVV. Card decline: 4111 1111 1111 0000.",
+  "seed_data_creation": "None. Anonymous uid auto-generated; onboarding profile written to localStorage 'nxt.profile'. A purchase was recorded via POST /api/purchase (sandbox) and surfaced on the dashboard (reference NXT-MQVF30P3 observed in test).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "App is Next.js served by `next start` on :3000 behind FastAPI proxy on :8001. Use REACT_APP_BACKEND_URL preview URL. Re-onboarding is required at the start of each test session because each new browser context starts with empty localStorage (Top matches / dashboard show 'No profile yet' otherwise). Use Playwright fill() on input IDs (#holder/#card/#expiry/#cvv) — using raw setter+event evaluate() did NOT update React state and left the Pay button disabled. Onboarding step buttons are role='button' identified by text — small (150–500ms) waits between AnimatePresence transitions are needed.",
+  "rca of the issue": "No bugs found. Visual-polish className/markup changes are non-functional and have NOT broken any flow: onboarding → results → plan → checkout (card success + card decline + FPX + e-Wallet) → dashboard all complete end-to-end with 0 console/page errors. Polish utilities confirmed present at expected counts: results page has app-aurora=1, card-grad=9, card-feature=1 (top match only, glow ring), hover-lift=11, display-head='Your top matches', eyebrow='Your results'. Checkout has display-head='Checkout', card-grad=2, app-aurora=1. Dashboard has display-head='My policies', eyebrow='Your cockpit', card-grad=2, app-aurora=1, plus the protection ScoreRing (visible '25 PROTECTED'), purchased policy card with Premium/Renews-in/Reference, and 3 coverage-gap chips."
+}
